@@ -112,14 +112,14 @@ def FindNewestTimeLocal(dirc):
   float
     A float representing the newest creation time since epoch
   """
-  ftime = 0
+  ftime = 0.0
   for dirpath,_,filenames in os.walk(dirc):
     for f in filenames:
       cfile = os.path.abspath(os.path.join(dirpath,f))
       file_time = os.path.getmtime(cfile)
-      logging.info("Local File Timestamp: " + str(ftime))
       if file_time > ftime:
         ftime = file_time
+        logging.info("Local File Timestamp: " + str(ftime))
   return ftime
 
 def FindNewestTimeCloud(bucket):
@@ -138,9 +138,9 @@ def FindNewestTimeCloud(bucket):
   ftime = 0.0
   for blob in bucket.list_blobs():
     file_time = float(GetTimeFromFilename(blob.name))
-    logging.info("Cloud File Timestamp: " + str(ftime))
     if file_time > ftime:
       ftime = file_time
+      logging.info("Cloud File Timestamp: " + str(ftime))
   return ftime
 
 if __name__ =="__main__":
