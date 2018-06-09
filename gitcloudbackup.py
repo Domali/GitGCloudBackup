@@ -66,8 +66,8 @@ def AreLocalFilesNewer(bucket,filedir):
   local_time = FindNewestTimeLocal(filedir)
   cloud_time = FindNewestTimeCloud(bucket)
   if local_time > cloud_time:
-    logging.info('Newest local time: '+ local_time)
-    logging.info('Cloud local time: '+ cloud_time)
+    logging.info('Newest local time: '+ str(local_time))
+    logging.info('Cloud local time: '+ str(cloud_time))
     changes = True
   return changes
 
