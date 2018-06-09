@@ -66,8 +66,8 @@ def AreLocalFilesNewer(bucket,filedir):
   local_time = FindNewestTimeLocal(filedir)
   cloud_time = FindNewestTimeCloud(bucket)
   if local_time > cloud_time:
-    logging.info('Newest local time: '+ str(local_time))
-    logging.info('Cloud local time: '+ str(cloud_time))
+    logging.debug('Newest local time: '+ str(local_time))
+    logging.debug('Cloud local time: '+ str(cloud_time))
     changes = True
   return changes
 
@@ -123,7 +123,7 @@ def FindNewestTimeLocal(dirc):
       file_time = os.path.getmtime(cfile)
       if file_time > ftime:
         ftime = file_time
-        logging.info("Local File Timestamp: " + str(ftime))
+        logging.debug("Local File Timestamp: " + str(ftime))
   return ftime
 
 def FindNewestTimeCloud(bucket):
@@ -144,7 +144,7 @@ def FindNewestTimeCloud(bucket):
     file_time = float(GetTimeFromFilename(blob.name))
     if file_time > ftime:
       ftime = file_time
-      logging.info("Cloud File Timestamp: " + str(ftime))
+      logging.debug("Cloud File Timestamp: " + str(ftime))
   return ftime
 
 if __name__ =="__main__":
