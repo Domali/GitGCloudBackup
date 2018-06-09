@@ -117,7 +117,7 @@ def FindNewestTimeLocal(dirc):
     for f in filenames:
       cfile = os.path.abspath(os.path.join(dirpath,f))
       file_time = os.path.getmtime(cfile)
-      logging.INFO("Local File Timestamp: " + ftime)
+      logging.info("Local File Timestamp: " + str(ftime))
       if file_time > ftime:
         ftime = file_time
   return ftime
@@ -138,7 +138,7 @@ def FindNewestTimeCloud(bucket):
   ftime = 0.0
   for blob in bucket.list_blobs():
     file_time = float(GetTimeFromFilename(blob.name))
-    logging.INFO("Cloud File Timestamp: " + ftime)
+    logging.info("Cloud File Timestamp: " + str(ftime))
     if file_time > ftime:
       ftime = file_time
   return ftime
