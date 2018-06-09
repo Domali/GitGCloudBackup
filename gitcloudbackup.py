@@ -63,7 +63,11 @@ def AreLocalFilesNewer(bucket,filedir):
     True if local filers are newer.
   """
   changes = False
-  if FindNewestTimeLocal(filedir) > FindNewestTimeCloud(bucket):
+  local_time = FindNewestTimeLocal(filedir)
+  cloud_time = FindNewestTimeCloud(bucket)
+  if local_time > cloud_time:
+    logging.info('Newest local time: '+ local_time)
+    logging.info('Cloud local time: '+ cloud_time)
     changes = True
   return changes
 
