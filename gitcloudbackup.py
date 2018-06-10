@@ -131,9 +131,9 @@ def GetTimeFromFilename(filename):
   float
     A float representing the time since epoch.  If 0.0 then no timestamp found
   """
-  regexc = r'\d+\.\d+\.zip$'
   try:
-    ftime = float(re.findall(regexc,filename)[0])
+    temp = re.findall(r'\d+\.\d+\.zip$',filename)[0]
+    ftime = float(re.findall(r'\d+\.\d+',temp)[0])
   except IndexError:
     ftime = 0.0
   return ftime
