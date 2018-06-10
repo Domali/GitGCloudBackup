@@ -36,7 +36,7 @@ def main(argv):
     logging.info("No local file changes")
 
 def SendStackMessage(saurl, text):
-  """ This method takes a Stack authenticated url and sends the text to it.
+  """ This method takes a Stack authenticated url and sends the text to it .
   Parameters
   ----------
   saurl : str
@@ -114,7 +114,7 @@ def AreLocalFilesNewer(bucket,filedir):
   changes = False
   local_time = FindNewestTimeLocal(filedir)
   cloud_time = FindNewestTimeCloud(bucket)
-  if local_time > cloud_time:
+  if int(local_time) > int(cloud_time):
     logging.debug('Newest local time: '+ str(local_time))
     logging.debug('Cloud local time: '+ str(cloud_time))
     changes = True
@@ -131,14 +131,14 @@ def GetTimeFromFilename(filename):
   float
     A float representing the time since epoch.  If 0.0 then no timestamp found
   """
-  regexc = r'\d+\.\d+'
+  regexc = r'\d+\.\d+\.zip$'
   try:
     ftime = float(re.findall(regexc,filename)[0])
   except IndexError:
     ftime = 0.0
   return ftime
 
-def ZipDirectory(dirz, zipf): # Further research suggests importing shutil and using shutil.make_archive()... lolol
+def ZipDirectory(dirz, zipf):
   """ This method takes a directory and zips it
   Parameters
   ----------
