@@ -45,7 +45,7 @@ def SendStackMessage(saurl, text):
     The text to send
   """
   PAYLOAD = {"text": text,}
-  res = requests.post(saurl, json=PAYLOAD)
+  requests.post(saurl, json=PAYLOAD)
 
 def LoadConfigFile(jsonf=None):
   """ This method takes a file name and loads a JSON config from it.  
