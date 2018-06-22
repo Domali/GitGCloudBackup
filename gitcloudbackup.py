@@ -30,10 +30,8 @@ def main(argv):
   bucket = client.get_bucket(bname)
   if AreLocalFilesNewer(bucket, zdir):
     UploadZippedDirectory(bucket,zdir,zfname)
-    SendStackMessage(saurl, "Files uploaded to cloud starge")
+    SendStackMessage(saurl, "Files uploaded to cloud storage")
     logging.info("Files uploaded to cloud storage")
-  else:
-    logging.info("No local file changes")
 
 def SendStackMessage(saurl, text):
   """ This method takes a Stack authenticated url and sends the text to it .
@@ -68,10 +66,8 @@ def LoadConfigFile(jsonf=None):
         [ "config.json", ])
   else:
     file_path = jsonf
-  logging.debug('JSON Config File: ' + file_path)
   with open(file_path, "r") as file:
     config = json.load(file)
-  logging.debug(config)
   return config
 
 def UploadZippedDirectory(bucket,zipdir,zipname):
@@ -115,8 +111,6 @@ def AreLocalFilesNewer(bucket,filedir):
   local_time = FindNewestTimeLocal(filedir)
   cloud_time = FindNewestTimeCloud(bucket)
   if int(local_time) > int(cloud_time):
-    logging.debug('Newest local time: '+ str(local_time))
-    logging.debug('Cloud local time: '+ str(cloud_time))
     changes = True
   return changes
 
@@ -172,7 +166,6 @@ def FindNewestTimeLocal(dirc):
       file_time = os.path.getmtime(cfile)
       if file_time > ftime:
         ftime = file_time
-        logging.debug("Local File Timestamp: " + str(ftime))
   return ftime
 
 def FindNewestTimeCloud(bucket):
@@ -193,7 +186,6 @@ def FindNewestTimeCloud(bucket):
     file_time = float(GetTimeFromFilename(blob.name))
     if file_time > ftime:
       ftime = file_time
-      logging.debug("Cloud File Timestamp: " + str(ftime))
   return ftime
 
 if __name__ =="__main__":
